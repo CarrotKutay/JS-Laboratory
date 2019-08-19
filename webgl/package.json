@@ -10,5 +10,8 @@
   "devDependencies": {
     "webpack": "^4.39.2",
     "webpack-cli": "^3.3.7"
+  },
+  "dependencies": {
+    "three": "^0.107.0"
   }
 }
