@@ -1,5 +1,5 @@
 # JS-Laboratory
 Several projects will be worked on in the following:
 
-# Project WebGL
+## Project WebGL
 Discription: Creating Animations in WebGL
