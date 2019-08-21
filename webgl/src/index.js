@@ -61,6 +61,9 @@ light4.add(new THREE.Mesh(sphere, new THREE.MeshBasicMaterial({
     color: 0xffaa00
 })));
 scene.add(light4);
+//setup ambient light
+let light = new THREE.AmbientLight(0x404040); // soft white light
+scene.add(light);
 
 
 function animate() {
