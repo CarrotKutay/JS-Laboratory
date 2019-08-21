@@ -10,13 +10,13 @@ camera.position.z = 5;
 const geometry = new THREE.BoxGeometry(1, 1, 1);
 
 //creating Material
-const material = new THREE.MeshBasicMaterial({
-    color: 0x00ff00
+const material = new THREE.MeshStandardMaterial({
+    color: 0xbc0909
 });
 
 //setup renderer
 const renderer = new THREE.WebGLRenderer({
-    antialias: 'true'
+    antialias: 'true',
 });
 renderer.setSize(window.innerWidth, window.innerHeight);
 
@@ -26,7 +26,10 @@ document.body.appendChild(renderer.domElement);
 
 //setup scene
 const scene = new THREE.Scene();
+
+//setup cube
 const cube = new THREE.Mesh(geometry, material);
+scene.add(cube);
 
 //setup Orbit Controls
 let controls = new OrbitControls(camera, renderer.domElement);
@@ -36,23 +39,53 @@ controls.autoRotate = true;
 controls.update();
 
 //setup Lights
-const light = new THREE.PointLight(0xff0000, 1, 100);
-light.position.set(50, 50, 50);
-
-scene.add(light);
-scene.add(cube);
+let sphere = new THREE.SphereBufferGeometry(0.5, 16, 8);
+//lights
+let light1 = new THREE.PointLight(0xff0040, 2, 50);
+light1.add(new THREE.Mesh(sphere, new THREE.MeshBasicMaterial({
+    color: 0xff0040
+})));
+scene.add(light1);
+let light2 = new THREE.PointLight(0x0040ff, 2, 50);
+light2.add(new THREE.Mesh(sphere, new THREE.MeshBasicMaterial({
+    color: 0x0040ff
+})));
+scene.add(light2);
+let light3 = new THREE.PointLight(0x80ff80, 2, 50);
+light3.add(new THREE.Mesh(sphere, new THREE.MeshBasicMaterial({
+    color: 0x80ff80
+})));
+scene.add(light3);
+let light4 = new THREE.PointLight(0xffaa00, 2, 50);
+light4.add(new THREE.Mesh(sphere, new THREE.MeshBasicMaterial({
+    color: 0xffaa00
+})));
+scene.add(light4);
 
 
 function animate() {
     requestAnimationFrame(animate);
-
-    //rotation
-    //cube.rotation.x += 0.01;
-    //cube.rotation.y += 0.01;
-
+    moveLight();
     //rotating around cube
     controls.update();
 
     renderer.render(scene, camera);
+}
+
+function moveLight() {
+    let time = Date.now() * 0.0005;
+    light1.position.x = Math.sin(time * 0.7) * 30;
+    light1.position.y = Math.cos(time * 0.5) * 40;
+    light1.position.z = Math.cos(time * 0.3) * 30;
+    light2.position.x = Math.cos(time * 0.3) * 30;
+    light2.position.y = Math.sin(time * 0.5) * 40;
+    light2.position.z = Math.sin(time * 0.7) * 30;
+    light3.position.x = Math.sin(time * 0.7) * 30;
+    light3.position.y = Math.cos(time * 0.3) * 40;
+    light3.position.z = Math.sin(time * 0.5) * 30;
+    light4.position.x = Math.sin(time * 0.3) * 30;
+    light4.position.y = Math.cos(time * 0.7) * 40;
+    light4.position.z = Math.sin(time * 0.5) * 30;
+
 }
 animate();
